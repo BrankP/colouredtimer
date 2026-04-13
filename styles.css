@@ -5,7 +5,7 @@
   --btn-border: #2c2c2c;
   --btn-active: #2d2d2d;
   --accent: #22d3ee;
-  --done-bg: #6d28d9;
+  --finish-color: #6d28d9;
 }
 
 * {
@@ -28,7 +28,7 @@ body {
 }
 
 body.finished {
-  background: var(--done-bg);
+  background: var(--finish-color);
 }
 
 .app {
@@ -57,6 +57,48 @@ body.finished {
   color: var(--fg);
 }
 
+.color-picker {
+  margin: clamp(0.55rem, 2vh, 1rem) auto 0;
+  border: 0;
+  padding: 0;
+  width: min(540px, 100%);
+}
+
+.color-picker__legend {
+  margin: 0 auto 0.45rem;
+  padding: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #c9c9c9;
+}
+
+.color-options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.35rem, 1.5vw, 0.65rem);
+}
+
+.color-option {
+  min-height: clamp(2.35rem, 7.2vw, 2.95rem);
+  border-radius: 0.7rem;
+  border: 1px solid #404040;
+  background: #121212;
+  color: #f1f1f1;
+  font-size: clamp(0.85rem, 2.7vw, 1rem);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.color-option.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgb(34 211 238 / 0.35) inset;
+}
+
+.color-option:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .numpad {
   width: min(460px, 100%);
   margin: clamp(0.9rem, 3.2vh, 1.8rem) auto 0;
@@ -79,7 +121,8 @@ body.finished {
   touch-action: manipulation;
 }
 
-.btn:active {
+.btn:active,
+.color-option:active {
   background: var(--btn-active);
 }
 
@@ -125,7 +168,7 @@ body.finished {
   display: none;
 }
 
-/* Keep full keypad visible on short landscape phone screens. */
+/* Keep full keypad and color controls visible on short landscape phone screens. */
 @media (orientation: landscape) and (max-height: 560px) {
   .app {
     padding-top: 0.45rem;
@@ -134,22 +177,41 @@ body.finished {
 
   .time-display {
     margin-top: 0;
-    font-size: clamp(1.7rem, 7.2vh, 2.5rem);
+    font-size: clamp(1.6rem, 6.5vh, 2.35rem);
+  }
+
+  .color-picker {
+    margin-top: clamp(0.25rem, 1.2vh, 0.55rem);
+  }
+
+  .color-picker__legend {
+    margin-bottom: 0.2rem;
+    font-size: 0.76rem;
+  }
+
+  .color-options {
+    gap: clamp(0.25rem, 0.9vw, 0.45rem);
+  }
+
+  .color-option {
+    min-height: clamp(1.85rem, 6.4vh, 2.45rem);
+    font-size: clamp(0.72rem, 2.6vh, 0.93rem);
+    border-radius: 0.55rem;
   }
 
   .numpad {
-    margin-top: clamp(0.35rem, 1.5vh, 0.75rem);
+    margin-top: clamp(0.3rem, 1.3vh, 0.7rem);
     width: min(520px, 96vw);
-    gap: clamp(0.35rem, 1.2vw, 0.65rem);
+    gap: clamp(0.3rem, 1vw, 0.6rem);
   }
 
   .btn {
-    min-height: clamp(2.15rem, 8.4vh, 2.9rem);
-    font-size: clamp(0.95rem, 3.5vh, 1.2rem);
+    min-height: clamp(1.95rem, 8vh, 2.8rem);
+    font-size: clamp(0.92rem, 3.3vh, 1.18rem);
     border-radius: 0.7rem;
   }
 
   .action-btn {
-    font-size: clamp(0.85rem, 3vh, 1.05rem);
+    font-size: clamp(0.8rem, 2.8vh, 1.02rem);
   }
 }
