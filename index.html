@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Segment Timer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <section id="input-screen" class="input-screen">
+      <h1 id="time-display" class="time-display" aria-label="Timer display">00:00</h1>
+
+      <fieldset class="color-picker" aria-label="Finish color selection">
+        <legend class="color-picker__legend">Finish Color</legend>
+        <div class="color-options" role="radiogroup" aria-label="Choose finish background color">
+          <button class="color-option" data-finish-color="red" type="button" aria-pressed="false">Red</button>
+          <button class="color-option" data-finish-color="blue" type="button" aria-pressed="false">Blue</button>
+          <button class="color-option selected" data-finish-color="purple" type="button" aria-pressed="true">Purple</button>
+          <button class="color-option" data-finish-color="green" type="button" aria-pressed="false">Green</button>
+          <button class="color-option" data-finish-color="pink" type="button" aria-pressed="false">Pink</button>
+        </div>
+      </fieldset>
+
+      <div class="numpad" role="group" aria-label="Timer number pad">
+        <button class="btn num-btn" data-digit="1" type="button">1</button>
+        <button class="btn num-btn" data-digit="2" type="button">2</button>
+        <button class="btn num-btn" data-digit="3" type="button">3</button>
+
+        <button class="btn num-btn" data-digit="4" type="button">4</button>
+        <button class="btn num-btn" data-digit="5" type="button">5</button>
+        <button class="btn num-btn" data-digit="6" type="button">6</button>
+
+        <button class="btn num-btn" data-digit="7" type="button">7</button>
+        <button class="btn num-btn" data-digit="8" type="button">8</button>
+        <button class="btn num-btn" data-digit="9" type="button">9</button>
+
+        <button id="reset-btn" class="btn action-btn" type="button">Reset</button>
+        <button class="btn num-btn" data-digit="0" type="button">0</button>
+        <button id="go-btn" class="btn action-btn go-btn" type="button">Go</button>
+      </div>
+    </section>
+
+    <section id="run-screen" class="run-screen hidden" aria-label="Segment timer">
+      <div id="segment-bar" class="segment-bar" role="img" aria-label="Five segment countdown bar">
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
