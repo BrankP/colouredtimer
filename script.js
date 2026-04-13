@@ -6,6 +6,15 @@
   let timerIntervalId = null;
   let endTimestamp = 0;
   let totalDurationMs = 0;
+  let selectedFinishColor = "purple";
+
+  const FINISH_COLORS = {
+    red: "#dc2626",
+    blue: "#2563eb",
+    purple: "#6d28d9",
+    green: "#16a34a",
+    pink: "#db2777"
+  };
 
   const inputScreen = document.getElementById("input-screen");
   const runScreen = document.getElementById("run-screen");
@@ -13,6 +22,7 @@
   const resetBtn = document.getElementById("reset-btn");
   const goBtn = document.getElementById("go-btn");
   const numberButtons = Array.from(document.querySelectorAll(".num-btn"));
+  const colorButtons = Array.from(document.querySelectorAll(".color-option"));
   const segments = Array.from(document.querySelectorAll(".segment"));
 
   function formatDisplay(buffer) {
@@ -39,6 +49,27 @@
     return minutes * 60 + seconds;
   }
 
+  function applyFinishColor(colorName) {
+    const resolvedColor = FINISH_COLORS[colorName] || FINISH_COLORS.purple;
+    selectedFinishColor = colorName in FINISH_COLORS ? colorName : "purple";
+    document.documentElement.style.setProperty("--finish-color", resolvedColor);
+  }
+
+  function selectColor(button) {
+    const colorName = button.dataset.finishColor;
+    if (!colorName) {
+      return;
+    }
+
+    colorButtons.forEach((item) => {
+      const isSelected = item === button;
+      item.classList.toggle("selected", isSelected);
+      item.setAttribute("aria-pressed", isSelected ? "true" : "false");
+    });
+
+    applyFinishColor(colorName);
+  }
+
   function setVisibleSegments(count) {
     const safeCount = Math.max(0, Math.min(5, count));
 
@@ -58,6 +89,7 @@
     }
 
     runScreen.classList.add("hidden");
+    applyFinishColor(selectedFinishColor);
     document.body.classList.add("finished");
   }
 
@@ -107,8 +139,13 @@
     });
   });
 
+  colorButtons.forEach((btn) => {
+    btn.addEventListener("click", () => selectColor(btn));
+  });
+
   resetBtn.addEventListener("click", resetInput);
   goBtn.addEventListener("click", startTimer);
 
+  applyFinishColor(selectedFinishColor);
   updateDisplay();
 })();
